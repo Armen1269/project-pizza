@@ -1,10 +1,10 @@
 import React from 'react'
 
 import { useEffect, useState } from "react";
-import Catigories from "./Components/Content-top/Catigories/Catigories";
-import Sort from "./Components/Content-top/Sort/Sort";
-import PizzaBlockSkeleton from "./Components/PizzaBlock/PizzaBlockSkeleton";
-import PizaaBlock from "./Components/PizzaBlock/PizzaBlock";
+import Catigories from "../Components/Content-top/Catigories/Catigories";
+import Sort from "../Components/Content-top/Sort/Sort";
+import PizzaBlockSkeleton from "../Components/PizzaBlock/PizzaBlockSkeleton";
+import PizaaBlock from "../Components/PizzaBlock/PizzaBlock";
 
 
 const Home = () => {
