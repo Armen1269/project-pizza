@@ -16,7 +16,8 @@ return (
           </div>
         </div>
       </Link>
-      <Link  to={"/cart"}>
+      {/* --------------------kansoli sxal@------------------------- */}
+      <Link to="/cart">
         <div className="header__cart">
           <a href="/cart.html" className="button button--cart">
             <span>0 ₽</span>
@@ -54,6 +55,7 @@ return (
           </a>
         </div>
       </Link>
+      {/* --------------------kansoli sxal@------------------------- */}
     </div>
   </div>
 );
