@@ -37,22 +37,12 @@ const Sort = () => {
       {open && (
         <div className="sort__popup">
           <ul>
-            {/* -------Petqakan  mas--------- */}
-            {/* <li className="active">популярности</li>
-            <li>цене</li>
-            <li>алфавиту</li> */}
-            {/* -------Petqakan  mas--------- */}
+
             {sortPopup.map((name, index) => {
               return (
                 <li
                   key={index}
                   onClick={() => clickSortAvtive(index)}
-                  //--------------------------im variant--------
-                  // onClick={() => {
-                  //   setSortActive(index);
-                  // 	setOpen(!open)
-                  // }}
-                  //---------------------------------------------
                   className={index === sortActive ? "active" : ""}
                 >
                   {name}
@@ -63,19 +53,6 @@ const Sort = () => {
         </div>
       )}
 
-      {/* ---------kamel  2 wariant------------- */}
-
-      {/* {open ? (
-        <div className="sort__popup">
-          <ul>
-            <li className="active">популярности</li>
-            <li>цене</li>
-            <li>алфавиту</li>
-          </ul>
-        </div>
-      ):"СкрЫТ  по НаЖатИЮ"} */}
-
-      {/* ------------------------- */}
     </div>
   );
 };

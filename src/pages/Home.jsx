@@ -17,11 +17,10 @@ const Home = () => {
       fetch(`https://6465c337228bd07b3551cd41.mockapi.io/items`)
         .then((response) => response.json())
         .then((data) => {
-          setTimeout(() => {
             setItems(data);
             setPizzaplockSkeleton(false);
-          }, 1000);
         });
+				window.scrollTo(0,0)
     }, []);
     console.log(items);
 return (

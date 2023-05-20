@@ -24,7 +24,7 @@ const Catigories = () => {
               onClick={() => onClicCatigories(index)}
               className={activeCatigories === index ? "active" : ""}
             >
-              {value}{" "}
+              {value}
             </li>
           );
         })}

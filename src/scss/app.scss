@@ -58,7 +58,7 @@ body {
     @media (max-width: 1260px) {
       flex-direction: column;
       .categories {
-        margin-bottom: 30px;
+        margin-bottom: 25px;
         width: 400px;
         overflow: scroll;
       }
@@ -141,6 +141,11 @@ body {
       }
     }
   }
+
+
+	.content__items {
+		display: block;
+	}
 
   &__item {
     display: flex;

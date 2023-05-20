@@ -13,10 +13,6 @@ const PizaaBlock = ({ title, price, imageUrl, sizes, types }) => {
         <h4 className="pizza-block__title">{title}</h4>
         <div className="pizza-block__selector">
           <ul>
-            {/* -------------------------------- */}
-            {/* <li className="active">тонкое</li>
-          <li>традиционное</li> */}
-            {/* -------------------------------- */}
             {types.map((typeIndex) => (
               <li
                 key={typeIndex}
@@ -30,11 +26,6 @@ const PizaaBlock = ({ title, price, imageUrl, sizes, types }) => {
             ))}
           </ul>
           <ul>
-            {/* -------------------------------- */}
-            {/* <li className="active">26 см.</li>
-          <li>30 см.</li>
-          <li>40 см.</li> */}
-            {/* -------------------------------- */}
             {sizes.map((sizes, index) => (
               <li
                 key={index}
