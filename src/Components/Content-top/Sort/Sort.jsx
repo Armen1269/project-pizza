@@ -1,17 +1,21 @@
 import React, { useState } from "react";
-const Sort = ({ sortTypePizzas,clickSortAvtive }) => {
-
-  const sortPopup = ["популярности", "цене", "алфавиту"];
+const Sort = ({ sortTypePizzas, clickSortAvtive }) => {
+  console.log(sortTypePizzas, "----------- homic ekac");
+  const sortPopup = [
+    { name: "популярности", sortProperty: "rating" },
+    { name: "цене", sortProperty: "price" },
+    { name: "алфавиту", sortProperty: "title" },
+  ];
   const [open, setOpen] = useState(false);
-  
+  console.log(sortPopup, "-------");
 
-	//----------------------------------
-const clickSortFunck = (index) =>{
-	setOpen(!open);
-	clickSortAvtive(index)
-}
-	//-------------------------------
-  let sortPopupNames = sortPopup[sortTypePizzas];
+  //----------------------------------
+  const clickSortFunck = (obj) => {
+    setOpen(!open);
+    clickSortAvtive(obj);
+  };
+  //-------------------------------
+  //let sortPopupNames = sortPopup[sortTypePizzas];
   return (
     <div className="sort">
       <div className="sort__label">
@@ -33,21 +37,25 @@ const clickSortFunck = (index) =>{
             setOpen(!open);
           }}
         >
-          {sortPopupNames}
+          {sortTypePizzas.name}
         </span>
       </div>
 
       {open && (
         <div className="sort__popup">
           <ul>
-            {sortPopup.map((name, index) => {
+            {sortPopup.map((obj, index) => {
               return (
                 <li
                   key={index}
-                  onClick={() => clickSortFunck(index)}
-                  className={index === sortTypePizzas ? "active" : ""}
+                  onClick={() => clickSortFunck(obj)}
+                  className={
+                    obj.sortProperty === sortTypePizzas.sortProperty
+                      ? "active"
+                      : ""
+                  }
                 >
-                  {name}
+                  {obj.name}
                 </li>
               );
             })}

@@ -14,14 +14,19 @@ const Home = () => {
 
   //------------------------------------------------------
   const [catigoriesIndex, setCatigoriesIndex] = useState(0);
-  const [sortTypePizzas, setSortTypePizzas] = useState(0);
+  const [sortTypePizzas, setSortTypePizzas] = useState({
+    name: "популярности",
+    sortProperty: "rating",
+  });
   //------------------------------------------------------
-  const catigoriesPizzas = catigoriesIndex > 0 ? `category=${catigoriesIndex}` : "";
+  const catigoriesPizzas =
+    catigoriesIndex > 0 ? `category=${catigoriesIndex}&` : "";
+  const sortPizzasAsc = `sortBy=${sortTypePizzas.sortProperty}&order=asc`;
 
   useEffect(() => {
     setPizzaplockSkeleton(true);
     fetch(
-      `https://6465c337228bd07b3551cd41.mockapi.io/item?${catigoriesPizzas}`
+      `https://6465c337228bd07b3551cd41.mockapi.io/item?${catigoriesPizzas}${sortPizzasAsc}`
     )
       .then((response) => response.json())
       .then((data) => {
@@ -29,7 +34,7 @@ const Home = () => {
         setPizzaplockSkeleton(false);
       });
     window.scrollTo(0, 0);
-  }, [catigoriesIndex]);
+  }, [catigoriesPizzas, sortPizzasAsc]);
 
   return (
     <div>
@@ -40,7 +45,7 @@ const Home = () => {
         />
         <Sort
           sortTypePizzas={sortTypePizzas}
-          clickSortAvtive={(index) => setSortTypePizzas(index)}
+          clickSortAvtive={(obj) => setSortTypePizzas(obj)}
         />
       </div>
       <h2 className="content__title">Все пиццы</h2>
