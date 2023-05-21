@@ -1,14 +1,17 @@
 import React, { useState } from "react";
-const Sort = () => {
-	let index = 0;
-	const sortPopup = ["популярности", "цене", "алфавиту"];
+const Sort = ({ sortTypePizzas,clickSortAvtive }) => {
+
+  const sortPopup = ["популярности", "цене", "алфавиту"];
   const [open, setOpen] = useState(false);
-  const [sortActive, setSortActive] = useState(index);
-  const clickSortAvtive = (index) => {
-    setSortActive(index);
-    setOpen(!open);
-  };
-  let sortPopupNames = sortPopup[sortActive];
+  
+
+	//----------------------------------
+const clickSortFunck = (index) =>{
+	setOpen(!open);
+	clickSortAvtive(index)
+}
+	//-------------------------------
+  let sortPopupNames = sortPopup[sortTypePizzas];
   return (
     <div className="sort">
       <div className="sort__label">
@@ -37,13 +40,12 @@ const Sort = () => {
       {open && (
         <div className="sort__popup">
           <ul>
-
             {sortPopup.map((name, index) => {
               return (
                 <li
                   key={index}
-                  onClick={() => clickSortAvtive(index)}
-                  className={index === sortActive ? "active" : ""}
+                  onClick={() => clickSortFunck(index)}
+                  className={index === sortTypePizzas ? "active" : ""}
                 >
                   {name}
                 </li>
@@ -52,7 +54,6 @@ const Sort = () => {
           </ul>
         </div>
       )}
-
     </div>
   );
 };

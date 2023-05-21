@@ -1,11 +1,5 @@
-import React, { useState } from "react";
-const Catigories = () => {
-  const [activeCatigories, setActiveCatigories] = useState(0);
-
-  const onClicCatigories = (index) => {
-    setActiveCatigories(index);
-  };
-
+import React from "react";
+const Catigories = ({ value, onClickPizzaCategoriesName }) => {
   const catigoriesPizza = [
     "Все",
     "Мясные",
@@ -17,14 +11,14 @@ const Catigories = () => {
   return (
     <div className="categories">
       <ul>
-        {/* <li className="active">Все</li> */}
-        {catigoriesPizza.map((value,index) => {
+        {catigoriesPizza.map((namePizza, index) => {
           return (
-            <li  key={index}
-              onClick={() => onClicCatigories(index)}
-              className={activeCatigories === index ? "active" : ""}
+            <li
+              key={index}
+              onClick={() => onClickPizzaCategoriesName(index)}
+              className={value === index ? "active" : ""}
             >
-              {value}
+              {namePizza}
             </li>
           );
         })}
