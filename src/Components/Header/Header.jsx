@@ -17,6 +17,9 @@ return (
       </Link>
       {/* --------------------kansoli sxal@------------------------- */}
       
+
+
+			
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">
             <span>0 ₽</span>

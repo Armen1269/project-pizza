@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
 const PizaaBlock = ({ title, price, imageUrl, sizes, types }) => {
+  const [count, setCount] = useState(0);
   const [activeType, setActiveType] = useState(0);
 
   const [activeSize, setActiveSize] = useState(0);
-
   const typeName = ["тонкое", "традиционное"];
   return (
     <div className="pizza-block-wrapper">
@@ -38,7 +38,21 @@ const PizaaBlock = ({ title, price, imageUrl, sizes, types }) => {
           </ul>
         </div>
         <div className="pizza-block__bottom">
-          <div className="pizza-block__price">от {price} ₽</div>
+          <div className="pizza-block__price">
+            от
+            {sizes.length === 3
+              ? activeSize === 0
+                ? price
+                : activeSize === 1
+                ? (price = price + 40)
+                : activeSize === 2
+                ? (price = price + 80)
+                : ""
+              : activeSize === 0
+              ? price
+              : (price = price + 40)}
+            ₽
+          </div>
           <button className="button button--outline button--add">
             <svg
               width="12"
@@ -52,8 +66,14 @@ const PizaaBlock = ({ title, price, imageUrl, sizes, types }) => {
                 fill="white"
               />
             </svg>
-            <span>Добавить</span>
-            <i>0</i>
+            <span
+              onClick={() => {
+                setCount(count + 1);
+              }}
+            >
+              Добавить
+            </span>
+            <i>{count}</i>
           </button>
         </div>
       </div>

@@ -1,19 +1,29 @@
 import React, { useState } from "react";
-const Sort = ({ sortTypePizzas, clickSortAvtive }) => {
-  console.log(sortTypePizzas, "----------- homic ekac");
+import { useDispatch, useSelector } from "react-redux";
+import { setSort } from "../../../redux/slices/filterSlice";
+const Sort = () => {
+  //{ sortTypePizzas, clickSortAvtive }  Sorti mejic  vorpes props
+
+  const dispatch = useDispatch();
+  const sort = useSelector((state) => state.filter.sort);
+  console.log(sort,"sortasdada");
+
+  //------------sharunakeli
+
   const sortPopup = [
     { name: "популярности", sortProperty: "rating" },
     { name: "цене", sortProperty: "price" },
     { name: "алфавиту", sortProperty: "title" },
   ];
   const [open, setOpen] = useState(false);
-  console.log(sortPopup, "-------");
 
   //----------------------------------
   const clickSortFunck = (obj) => {
-    setOpen(!open);
-    clickSortAvtive(obj);
+    setOpen(!open)
+		dispatch(setSort(obj))
+    // clickSortAvtive(obj);-------------------------
   };
+
   //-------------------------------
   //let sortPopupNames = sortPopup[sortTypePizzas];
   return (
@@ -37,7 +47,7 @@ const Sort = ({ sortTypePizzas, clickSortAvtive }) => {
             setOpen(!open);
           }}
         >
-          {sortTypePizzas.name}
+          {sort.name}
         </span>
       </div>
 
@@ -45,14 +55,13 @@ const Sort = ({ sortTypePizzas, clickSortAvtive }) => {
         <div className="sort__popup">
           <ul>
             {sortPopup.map((obj, index) => {
+		
               return (
                 <li
                   key={index}
                   onClick={() => clickSortFunck(obj)}
                   className={
-                    obj.sortProperty === sortTypePizzas.sortProperty
-                      ? "active"
-                      : ""
+                    sort.sortProperty === obj.sortProperty ? "active" : ""
                   }
                 >
                   {obj.name}
