@@ -1,5 +1,5 @@
 import React from "react";
-
+import axios from "axios";
 import { useEffect, useState } from "react";
 import Catigories from "../Components/Content-top/Catigories/Catigories";
 import Sort from "../Components/Content-top/Sort/Sort";
@@ -11,7 +11,7 @@ import { setCatigoriesIndex } from "../redux/slices/filterSlice";
 const Home = () => {
   const dispatch = useDispatch();
   const catigoriesIndex = useSelector((state) => state.filter.catigoriesIndex);
-	const sortType = useSelector((state) => state.filter.sort.sortProperty);
+  const sortType = useSelector((state) => state.filter.sort.sortProperty);
   console.log(catigoriesIndex, "sortik");
 
   const [pizzaBlockSkeleton, setPizzaplockSkeleton] = useState(true);
@@ -25,23 +25,30 @@ const Home = () => {
   // });
   const onClickPizzaCategoriesName = (id) => {
     console.log(id);
-		dispatch(setCatigoriesIndex(id));
+    dispatch(setCatigoriesIndex(id));
   };
   //------------------------------------------------------
   const catigoriesPizzas =
     catigoriesIndex > 0 ? `category=${catigoriesIndex}&` : "";
   const sortPizzasAsc = `sortBy=${sortType}&order=asc`;
-console.log(sortPizzasAsc,"asc");
+  console.log(sortPizzasAsc, "asc");
   useEffect(() => {
     setPizzaplockSkeleton(true);
-    fetch(
-      `https://6465c337228bd07b3551cd41.mockapi.io/item?${catigoriesPizzas}${sortPizzasAsc}`
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setItems(data);
-        setPizzaplockSkeleton(false);
-      });
+    // fetch(
+    //   `https://6465c337228bd07b3551cd41.mockapi.io/item?${catigoriesPizzas}${sortPizzasAsc}`
+    // )
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     setItems(data);
+    //     setPizzaplockSkeleton(false);
+    //   });
+    axios
+      .get(
+        `https://6465c337228bd07b3551cd41.mockapi.io/item?${catigoriesPizzas}${sortPizzasAsc}`
+      )
+      .then((res) => setItems(res.data));
+			 setPizzaplockSkeleton(false);
+
     window.scrollTo(0, 0);
   }, [catigoriesPizzas, sortPizzasAsc]);
 
@@ -52,7 +59,8 @@ console.log(sortPizzasAsc,"asc");
           value={catigoriesIndex}
           onClickPizzaCategoriesName={onClickPizzaCategoriesName}
         />
-        <Sort />{" "}  {/*   sortTypePizzas={sortTypePizzas}
+        <Sort />{" "}
+        {/*   sortTypePizzas={sortTypePizzas}
           clickSortAvtive={(obj) => setSortTypePizzas(obj)} */}
       </div>
       <h2 className="content__title">Все пиццы</h2>
