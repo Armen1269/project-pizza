@@ -8,7 +8,7 @@ import PizaaBlock from "../Components/PizzaBlock/PizzaBlock";
 import { useDispatch, useSelector } from "react-redux";
 import { setCatigoriesIndex } from "../redux/slices/filterSlice";
 
-const Home = () => {
+const Home = ({searchValue, setSearchValue}) => {
   const dispatch = useDispatch();
   const catigoriesIndex = useSelector((state) => state.filter.catigoriesIndex);
   const sortType = useSelector((state) => state.filter.sort.sortProperty);
@@ -36,7 +36,13 @@ const Home = () => {
 
     window.scrollTo(0, 0);
   }, [catigoriesPizzas, sortPizzasAsc]);
-
+const pizzas = items.filter(obj=>{
+if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
+  return true;
+}
+	return false
+}).map((obj) => <PizaaBlock key={obj.id} {...obj} />)
+const skeleton =  Arr.map((_, index) => <PizzaBlockSkeleton key={index} />)
   return (
     <div>
       <div className="content__top">
@@ -51,8 +57,8 @@ const Home = () => {
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
         {pizzaBlockSkeleton
-          ? Arr.map((_, index) => <PizzaBlockSkeleton key={index} />)
-          : items.map((obj) => <PizaaBlock key={obj.id} {...obj} />)}
+          ? skeleton
+          :pizzas }
       </div>
     </div>
   );

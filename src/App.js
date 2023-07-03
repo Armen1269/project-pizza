@@ -16,11 +16,19 @@ const [searchValue,setSearchValue] = useState("")
     <div className="wrapper">
       <searchPizzas.Provider value={{ searchValue, setSearchValue }}>
         <Header />
-				 {/* searchValue={searchValue} setSearchValue={setSearchValue} */}
+     
         <div className="content">
           <div className="container">
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route
+                path="/"
+                element={
+                  <Home
+                    searchValue={searchValue}
+                    setSearchValue={setSearchValue}
+                  />
+                }
+              />
               <Route path="/cart" element={<Cart />} />
               <Route path="*" element={<NodFound />} />
             </Routes>
