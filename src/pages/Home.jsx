@@ -8,7 +8,7 @@ import PizaaBlock from "../Components/PizzaBlock/PizzaBlock";
 import { useDispatch, useSelector } from "react-redux";
 import { setCatigoriesIndex } from "../redux/slices/filterSlice";
 
-const Home = ({searchValue}) => {
+const Home = ({ searchValue }) => {
   const dispatch = useDispatch();
   const catigoriesIndex = useSelector((state) => state.filter.catigoriesIndex);
   const sortType = useSelector((state) => state.filter.sort.sortProperty);
@@ -25,7 +25,7 @@ const Home = ({searchValue}) => {
   const catigoriesPizzas =
     catigoriesIndex > 0 ? `category=${catigoriesIndex}&` : "";
   const sortPizzasAsc = `sortBy=${sortType}&order=asc`;
-	const  search = searchValue ? `&search ${searchValue}`:""
+  const search = searchValue ? `&search=${searchValue}` : "";
   useEffect(() => {
     setPizzaplockSkeleton(true);
     axios
@@ -33,17 +33,13 @@ const Home = ({searchValue}) => {
         `https://6465c337228bd07b3551cd41.mockapi.io/item?${catigoriesPizzas}${sortPizzasAsc}${search}`
       )
       .then((res) => setItems(res.data));
-			 setPizzaplockSkeleton(false);
+    setPizzaplockSkeleton(false);
 
     window.scrollTo(0, 0);
-  }, [catigoriesPizzas, sortPizzasAsc, search]);
-const pizzas = items.filter(obj=>{
-if (obj.title.toLowerCase().includes(searchValue.toLowerCase())) {
-  return true;
-}
-	return false
-}).map((obj) => <PizaaBlock key={obj.id} {...obj} />)
-const skeleton =  Arr.map((_, index) => <PizzaBlockSkeleton key={index} />)
+  }, [catigoriesPizzas, sortPizzasAsc, searchValue, search]);
+  const pizzas = items.map((obj) => <PizaaBlock key={obj.id} {...obj} />);
+  console.log(items);
+  const skeleton = Arr.map((_, index) => <PizzaBlockSkeleton key={index} />);
   return (
     <div>
       <div className="content__top">
@@ -52,13 +48,10 @@ const skeleton =  Arr.map((_, index) => <PizzaBlockSkeleton key={index} />)
           onClickPizzaCategoriesName={onClickPizzaCategoriesName}
         />
         <Sort />
- 
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">
-        {pizzaBlockSkeleton
-          ? skeleton
-          :pizzas }
+        {pizzaBlockSkeleton ? skeleton : pizzas}
       </div>
     </div>
   );
