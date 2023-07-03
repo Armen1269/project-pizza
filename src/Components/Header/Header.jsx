@@ -1,25 +1,27 @@
 import React from 'react'
 import pizzaLogo from '../../assets/img/pizza-logo.svg'
 import { Link } from 'react-router-dom'
+import Search from '../Search/Search';
 
-const Header = () =>{
-return (
-  <div className="header">
-    <div className="container">
-      <Link to="/">
-        <div className="header__logo">
-          <img width="38" src={pizzaLogo} alt="Pizza logo" />
-          <div>
-            <h1>React Pizza</h1>
-            <p>самая вкусная пицца во вселенной</p>
+const Header = () => {
+	// {
+  //   searchValue, setSearchValue;
+  // }
+  return (
+    <div className="header">
+      <div className="container">
+        <Link to="/">
+          <div className="header__logo">
+            <img width="38" src={pizzaLogo} alt="Pizza logo" />
+            <div>
+              <h1>React Pizza</h1>
+              <p>самая вкусная пицца во вселенной</p>
+            </div>
           </div>
-        </div>
-      </Link>
-      {/* --------------------kansoli sxal@------------------------- */}
-      
-
-
-			
+        </Link>
+        <Search />
+        {/* searchValue={searchValue} setSearchValue={setSearchValue} */}
+        {/* --------------------kansoli sxal@------------------------- */}
         <div className="header__cart">
           <Link to="/cart" className="button button--cart">
             <span>0 ₽</span>
@@ -56,14 +58,11 @@ return (
             <span>0</span>
           </Link>
         </div>
-    
-      {/* --------------------kansoli sxal@------------------------- */}
+        {/* --------------------kansoli sxal@------------------------- */}
+      </div>
     </div>
-  </div>
-);
-
-
-}
+  );
+};
 export default Header
 
 

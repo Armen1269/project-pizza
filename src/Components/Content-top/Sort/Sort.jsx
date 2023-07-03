@@ -6,7 +6,7 @@ const Sort = () => {
 
   const dispatch = useDispatch();
   const sort = useSelector((state) => state.filter.sort);
-  console.log(sort,"sortasdada");
+
 
   //------------sharunakeli
 
