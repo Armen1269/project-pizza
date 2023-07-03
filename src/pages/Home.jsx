@@ -7,12 +7,13 @@ import PizzaBlockSkeleton from "../Components/PizzaBlock/PizzaBlockSkeleton";
 import PizaaBlock from "../Components/PizzaBlock/PizzaBlock";
 import { useDispatch, useSelector } from "react-redux";
 import { setCatigoriesIndex } from "../redux/slices/filterSlice";
+import Pageination from "../Components/Pageination/Pageination";
 
 const Home = ({ searchValue }) => {
   const dispatch = useDispatch();
   const catigoriesIndex = useSelector((state) => state.filter.catigoriesIndex);
   const sortType = useSelector((state) => state.filter.sort.sortProperty);
-
+  const [pizzaPages, setPizzaPages] = useState(1);
   const [pizzaBlockSkeleton, setPizzaplockSkeleton] = useState(true);
   const [items, setItems] = useState([]);
   const Arr = new Array(10).fill(undefined);
@@ -30,13 +31,13 @@ const Home = ({ searchValue }) => {
     setPizzaplockSkeleton(true);
     axios
       .get(
-        `https://6465c337228bd07b3551cd41.mockapi.io/item?${catigoriesPizzas}${sortPizzasAsc}${search}`
+        `https://6465c337228bd07b3551cd41.mockapi.io/item?page=${pizzaPages}&limit=4&${catigoriesPizzas}${sortPizzasAsc}${search}`
       )
       .then((res) => setItems(res.data));
     setPizzaplockSkeleton(false);
 
     window.scrollTo(0, 0);
-  }, [catigoriesPizzas, sortPizzasAsc, searchValue, search]);
+  }, [catigoriesPizzas, sortPizzasAsc, searchValue, pizzaPages, search]);
   const pizzas = items.map((obj) => <PizaaBlock key={obj.id} {...obj} />);
   console.log(items);
   const skeleton = Arr.map((_, index) => <PizzaBlockSkeleton key={index} />);
@@ -53,6 +54,7 @@ const Home = ({ searchValue }) => {
       <div className="content__items">
         {pizzaBlockSkeleton ? skeleton : pizzas}
       </div>
+      <Pageination setPizzaPages={(number) => setPizzaPages(number)} />
     </div>
   );
 };
