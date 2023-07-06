@@ -6,14 +6,15 @@ import Sort from "../Components/Content-top/Sort/Sort";
 import PizzaBlockSkeleton from "../Components/PizzaBlock/PizzaBlockSkeleton";
 import PizaaBlock from "../Components/PizzaBlock/PizzaBlock";
 import { useDispatch, useSelector } from "react-redux";
-import { setCatigoriesIndex } from "../redux/slices/filterSlice";
+import { setCatigoriesIndex, setPagination } from "../redux/slices/filterSlice";
 import Pageination from "../Components/Pageination/Pageination";
 
 const Home = ({ searchValue }) => {
   const dispatch = useDispatch();
   const catigoriesIndex = useSelector((state) => state.filter.catigoriesIndex);
+  const pizzaPages = useSelector((state) => state.filter.pagination);
   const sortType = useSelector((state) => state.filter.sort.sortProperty);
-  const [pizzaPages, setPizzaPages] = useState(1);
+  //const [pizzaPages, setPizzaPages] = useState(1);
   const [pizzaBlockSkeleton, setPizzaplockSkeleton] = useState(true);
   const [items, setItems] = useState([]);
   const Arr = new Array(10).fill(undefined);
@@ -27,6 +28,10 @@ const Home = ({ searchValue }) => {
     catigoriesIndex > 0 ? `category=${catigoriesIndex}&` : "";
   const sortPizzasAsc = `sortBy=${sortType}&order=asc`;
   const search = searchValue ? `&search=${searchValue}` : "";
+  const onChangePage = (number) => {
+    dispatch(setPagination(number))
+  };
+
   useEffect(() => {
     setPizzaplockSkeleton(true);
     axios
@@ -54,7 +59,7 @@ const Home = ({ searchValue }) => {
       <div className="content__items">
         {pizzaBlockSkeleton ? skeleton : pizzas}
       </div>
-      <Pageination setPizzaPages={(number) => setPizzaPages(number)} />
+      <Pageination pizzaPages={pizzaPages} setPizzaPages={onChangePage} />
     </div>
   );
 };
